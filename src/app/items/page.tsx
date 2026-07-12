@@ -1,5 +1,6 @@
 'use client'
 import BookCard from '@/components/BookCard';
+import { Pagination } from '@heroui/react';
 import React, { useEffect, useState } from 'react';
 interface Book {
   _id: string;
@@ -15,6 +16,8 @@ interface Book {
 const AllBookPage = () => {
    const [books, setBooks] = useState<Book[]>([]);
 const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
+const [currentPage, setCurrentPage] = useState(1);
+const booksPerPage = 8;
 const [search, setSearch] = useState("");
 const [genre, setGenre] = useState("all");
 const [price, setPrice] = useState("all");
@@ -29,6 +32,26 @@ setFilteredBooks(data);
       setLoading(false);
     });
 }, []);
+const totalPages = Math.ceil(
+  filteredBooks.length / booksPerPage
+);
+
+const currentBooks = filteredBooks.slice(
+  (currentPage - 1) * booksPerPage,
+  currentPage * booksPerPage
+);
+const startBook =
+  filteredBooks.length === 0
+    ? 0
+    : (currentPage - 1) * booksPerPage + 1;
+
+const endBook = Math.min(
+  currentPage * booksPerPage,
+  filteredBooks.length
+);
+useEffect(() => {
+  setCurrentPage(1);
+}, [search, genre, price, sort]);
 useEffect(() => {
   let result = [...books];
 
@@ -78,12 +101,12 @@ useEffect(() => {
         <div>
           <div className="mb-10 text-center">
 
-<h1 className="text-5xl font-bold text-[#1A365D]">
+<h1 className="text-5xl font-bold text-[#1A365D] my-5">
 Discover Books
 </h1>
 
 <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
-Browse hundreds of books from different genres. Search, filter,
+Browse books from different genres. Search, filter,
 and discover your next favorite read.
 </p>
 
@@ -145,16 +168,74 @@ className="rounded-xl border p-3"
 </select>
 
 </div>
-<p className="mb-6 text-slate-500">
-Showing {filteredBooks.length} books
-</p>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 my-8">
-  {filteredBooks.map((book) => (
-    <BookCard
-      key={book._id}
-      book={book}
-    />
-  ))}
+<div className="mb-6 flex items-center justify-between text-slate-500">
+  <p>
+    Showing <span className="font-semibold">{startBook}</span>–
+    <span className="font-semibold">{endBook}</span> of{" "}
+    <span className="font-semibold">{filteredBooks.length}</span> books
+  </p>
+
+  <p>
+    Page <span className="font-semibold">{currentPage}</span> of{" "}
+    <span className="font-semibold">{totalPages || 1}</span>
+  </p>
+</div>
+            {currentBooks.length === 0 ? (
+  <div className="py-16 text-center">
+    <h2 className="text-2xl font-semibold">
+      No books found
+    </h2>
+    <p className="text-slate-500">
+      Try changing your filters or search.
+    </p>
+  </div>
+) : (
+  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 my-8">
+    {currentBooks.map((book) => (
+      <BookCard
+        key={book._id}
+        book={book}
+      />
+    ))}
+  </div>
+)}
+<div className="my-10">
+  {totalPages > 1 && (
+    <Pagination className="justify-center">
+      <Pagination.Content>
+        <Pagination.Item>
+          <Pagination.Previous
+            isDisabled={currentPage === 1}
+            onPress={() => setCurrentPage((p) => p - 1)}
+          >
+            <Pagination.PreviousIcon />
+            <span>Previous</span>
+          </Pagination.Previous>
+        </Pagination.Item>
+
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <Pagination.Item key={page}>
+            <Pagination.Link
+              isActive={page === currentPage}
+              onPress={() => setCurrentPage(page)}
+            >
+              {page}
+            </Pagination.Link>
+          </Pagination.Item>
+        ))}
+
+        <Pagination.Item>
+          <Pagination.Next
+            isDisabled={currentPage === totalPages}
+            onPress={() => setCurrentPage((p) => p + 1)}
+          >
+            <span>Next</span>
+            <Pagination.NextIcon />
+          </Pagination.Next>
+        </Pagination.Item>
+      </Pagination.Content>
+    </Pagination>
+  )}
 </div>
         </div>
     );
