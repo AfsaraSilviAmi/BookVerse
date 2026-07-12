@@ -1,5 +1,6 @@
 'use client'
 import BookCard from '@/components/BookCard';
+import BookLoader from '@/components/BookLoader';
 import { Pagination } from '@heroui/react';
 import React, { useEffect, useState } from 'react';
 interface Book {
@@ -97,8 +98,12 @@ useEffect(() => {
 
   setFilteredBooks(result);
 }, [books, search, genre, price, sort]);
+
+if (loading) {
+  return <BookLoader />;
+}
     return (
-        <div>
+        <div className='w-11/12 mx-auto'>
           <div className="mb-10 text-center">
 
 <h1 className="text-5xl font-bold text-[#1A365D] my-5">
