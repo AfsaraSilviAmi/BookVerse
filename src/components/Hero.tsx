@@ -7,6 +7,7 @@ import { Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { BookOpen, ChevronDown, Sparkles } from "lucide-react";
 
+
 const fadeLeft = {
   hidden: { opacity: 0, x: -60 },
   show: {
@@ -20,7 +21,7 @@ const fadeLeft = {
 };
 
 export default function Hero() {
-  const { data: session } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-violet-50">
@@ -113,7 +114,7 @@ export default function Hero() {
               </Link>
             </motion.div>
 
-            {session && (
+            {!isPending && session && (
               <motion.div whileHover={{ scale: 1.05 }}>
                 <Link href="/items/add">
                   <Button
