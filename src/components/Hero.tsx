@@ -103,7 +103,7 @@ export default function Hero() {
             variants={fadeLeft}
             className="mt-10 flex flex-wrap gap-4"
           >
-            <motion.div whileHover={{ scale: 1.05 }}>
+            <div className="transition-transform duration-200 hover:scale-105">
               <Link href="/items">
                 <Button
                   size="lg"
@@ -112,7 +112,7 @@ export default function Hero() {
                   Explore Books
                 </Button>
               </Link>
-            </motion.div>
+            </div>
 
             {!isPending && session && (
               <motion.div whileHover={{ scale: 1.05 }}>

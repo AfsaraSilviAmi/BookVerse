@@ -96,7 +96,7 @@ export default function FeaturedBooks() {
                 whileHover={{
                   y: -12,
                 }}
-                className="group rounded-3xl border border-slate-200 bg-white p-5 shadow-md transition-shadow duration-300 hover:shadow-2xl"
+                className="group flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-5 shadow-md transition-shadow duration-300 hover:shadow-2xl"
               >
                 {/* Book Cover */}
 
@@ -112,12 +112,12 @@ export default function FeaturedBooks() {
 
                 {/* Content */}
 
-                <div className="mt-6 text-center">
-                  <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold text-violet-700">
+               <div className="mt-6 flex flex-1 flex-col text-center">
+                  <span className="rounded-full bg-violet-100 px-3 py-1 w-20 mx-auto text-xs font-semibold text-violet-700">
                     {book.genre}
                   </span>
 
-                  <h3 className="mt-4 line-clamp-2 text-xl font-bold text-[#1A365D]">
+                 <h3 className="mt-4 min-h-[56px] line-clamp-2 text-xl font-bold text-[#1A365D]">
                     {book.title}
                   </h3>
 

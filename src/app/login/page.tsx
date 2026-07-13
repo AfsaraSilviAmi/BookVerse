@@ -19,10 +19,6 @@ export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const demoUser = {
-    email: "user@bookverse.com",
-    password: "User123",
-  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,15 +55,7 @@ export default function LoginPage() {
     }
   };
 
-  const fillDemoCredentials = () => {
-    const email = document.getElementById("email") as HTMLInputElement;
-    const password = document.getElementById("password") as HTMLInputElement;
-
-    if (email && password) {
-      email.value = demoUser.email;
-      password.value = demoUser.password;
-    }
-  };
+ 
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-10">
@@ -148,13 +136,6 @@ export default function LoginPage() {
             {loading ? "Signing In..." : "Login"}
           </Button>
 
-          <Button
-            type="button"
-            variant="outline"
-            onPress={fillDemoCredentials}
-          >
-            Demo Login
-          </Button>
         </div>
 
 

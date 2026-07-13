@@ -1,3 +1,4 @@
+import CTASection from "@/components/CTASection";
 import ExploreGenres from "@/components/ExploreGenres";
 import FeaturedBooks from "@/components/FeaturedBook";
 import GenreChart from "@/components/GenreChat";
@@ -17,6 +18,7 @@ export default function Home() {
    <ExploreGenres></ExploreGenres>
      <Testimonials></Testimonials>
      <PopularAuthors></PopularAuthors>
+     <CTASection></CTASection>
    </div>
   );
 }
