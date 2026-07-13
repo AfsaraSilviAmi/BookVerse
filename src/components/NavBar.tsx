@@ -7,10 +7,22 @@ import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/items", label: "All Books" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  {
+    href: "/",
+    label: "Home",
+  },
+  {
+    href: "/items",
+    label: "All Books",
+  },
+  {
+    href: "/about",
+    label: "About",
+  },
+  {
+    href: "/contact",
+    label: "Contact",
+  },
 ];
 
 export default function NavBar() {
@@ -36,26 +48,18 @@ const handleLogout = async () => {
          <Image src="/logo.png" alt="logo" width={500} height={500} className="w-20"></Image>
         </Link>
 <div className="hidden items-center gap-8 md:flex">
-  <Link
-  href="/"
-  className="relative font-medium text-[#008B8B] transition-all duration-300 hover:text-[#5B21B6] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#008B8B] after:to-[#5B21B6] after:transition-all after:duration-300 hover:after:w-full"
->
-  Home
-</Link>
-
-  {user ? (
-    <>
-     <Link href="/items" className="relative font-medium text-slate-700 transition-all duration-300 hover:text-[#5B21B6] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#008B8B] after:to-[#5B21B6] after:transition-all after:duration-300 hover:after:w-full">All Books</Link>
-      <Link href="/about" className="relative text-[#008B8B] font-medium transition-all duration-300 hover:text-[#5B21B6] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#008B8B] after:to-[#5B21B6] after:transition-all after:duration-300 hover:after:w-full">About</Link>
-      <Link href="/help" className="relative font-medium text-[#008B8B] transition-all duration-300 hover:text-[#5B21B6] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#008B8B] after:to-[#5B21B6] after:transition-all after:duration-300 hover:after:w-full">Help</Link>
-    </>
-  ) : (
-    <>
-      <Link href="/items" className="relative font-medium text-slate-700 transition-all duration-300 hover:text-[#5B21B6] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#008B8B] after:to-[#5B21B6] after:transition-all after:duration-300 hover:after:w-full">All Books</Link>
-      <Link href="/about" className="relative font-medium text-slate-700 transition-all duration-300 hover:text-[#5B21B6] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#008B8B] after:to-[#5B21B6] after:transition-all after:duration-300 hover:after:w-full">About</Link>
-      <Link href="/contact" className="relative font-medium text-slate-700 transition-all duration-300 hover:text-[#5B21B6] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#008B8B] after:to-[#5B21B6] after:transition-all after:duration-300 hover:after:w-full">Contact</Link>
-    </>
-  )}
+  {navLinks.map((link) => (
+    <Link
+      key={link.href}
+      href={link.href}
+      className="relative font-medium text-[#008B8B] transition-all duration-300 hover:text-[#5B21B6]
+      after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0
+      after:bg-gradient-to-r after:from-[#008B8B] after:to-[#5B21B6]
+      after:transition-all after:duration-300 hover:after:w-full"
+    >
+      {link.label}
+    </Link>
+  ))}
 </div>
         {/* Desktop Menu */}
         <div className="hidden items-center gap-3 md:flex">
@@ -78,41 +82,22 @@ const handleLogout = async () => {
 
       <Dropdown.Popover>
         <Dropdown.Menu>
-          <Dropdown.Item id="profile">
-            <Label>
-              <div className="flex flex-col">
-                <span className="font-semibold">
-                  {user.name}
-                </span>
-                <span className="text-xs text-default-500">
-                  {user.email}
-                </span>
-              </div>
-            </Label>
-          </Dropdown.Item>
+          <Dropdown.Item id="add-book" className="block w-full">
+  <Link href="/items/add">
+    Add Book
+  </Link>
+</Dropdown.Item>
 
-          <Dropdown.Item id="my-books">
-            <Link href="/my-books" className="rounded-lg transition-colors hover:bg-[#A78BFA]/20">
-              My Books
-            </Link>
-          </Dropdown.Item>
-
-          <Dropdown.Item id="add-book" className="rounded-lg transition-colors hover:bg-[#A78BFA]/20">
-            <Link href="/books/add">
-              Add Book
-            </Link>
-          </Dropdown.Item>
-
-          <Dropdown.Item id="manage-books" className="rounded-lg transition-colors hover:bg-[#A78BFA]/20">
-            <Link href="/books/manage">
-              Manage Books
-            </Link>
-          </Dropdown.Item>
+<Dropdown.Item id="manage-books" className="block w-full">
+  <Link href="/items/manage">
+    Manage Books
+  </Link>
+</Dropdown.Item>
 
           <Dropdown.Item
   id="logout"
   variant="danger"
-  className="rounded-lg font-semibold text-red-500 hover:bg-red-50"
+  className="rounded-lg font-semibold text-red-500 hover:bg-red-50 block w-full"
   onAction={handleLogout}
 >
   Logout
@@ -172,107 +157,69 @@ const handleLogout = async () => {
   </div>
 )}
 
+  
+
+  {user ? (
+   <>
+  {navLinks.map((link) => (
+    <Link
+      key={link.href}
+      href={link.href}
+      onClick={() => setIsMenuOpen(false)}
+      className="font-medium text-slate-700"
+    >
+      {link.label}
+    </Link>
+  ))}
+
   <Link
-    href="/"
+    href="/items/add"
     onClick={() => setIsMenuOpen(false)}
     className="font-medium text-[#008B8B]"
   >
-    Home
+    Add Book
   </Link>
 
-  {user ? (
-    <>
-      <Link
-        href="/about"
-        onClick={() => setIsMenuOpen(false)}
-        className="font-medium text-[#008B8B]"
-      >
-        About
-      </Link>
+  <Link
+    href="/items/manage"
+    onClick={() => setIsMenuOpen(false)}
+    className="font-medium text-[#008B8B]"
+  >
+    Manage Books
+  </Link>
 
-      <Link
-        href="/help"
-        onClick={() => setIsMenuOpen(false)}
-        className="font-medium text-[#008B8B]"
-      >
-        Help
-      </Link>
-
-      <Link
-        href="/my-books"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        My Books
-      </Link>
-
-      <Link
-        href="/books/add"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Add Book
-      </Link>
-
-      <Link
-        href="/books/manage"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        Manage Books
-      </Link>
-
-      <Button
-        color="danger"
-        onPress={async () => {
-          await handleLogout();
-          setIsMenuOpen(false);
-        }}
-      >
-        Logout
-      </Button>
-    </>
+  <Button
+   variant="danger-soft"
+    onPress={async () => {
+      await handleLogout();
+      setIsMenuOpen(false);
+    }}
+  >
+    Logout
+  </Button>
+</>
   ) : (
-    <>
-      <Link
-        href="/explore"
-        onClick={() => setIsMenuOpen(false)}
-        className="font-medium text-[#008B8B]"
-      >
-        Explore
-      </Link>
+   <>
+  {navLinks.map((link) => (
+    <Link
+      key={link.href}
+      href={link.href}
+      onClick={() => setIsMenuOpen(false)}
+      className="font-medium text-slate-700"
+    >
+      {link.label}
+    </Link>
+  ))}
 
-      <Link
-        href="/about"
-        onClick={() => setIsMenuOpen(false)}
-        className="font-medium text-[#008B8B]"
-      >
-        About
-      </Link>
-
-      <Link
-        href="/contact"
-        onClick={() => setIsMenuOpen(false)}
-        className="font-medium text-[#008B8B]"
-      >
-        Contact
-      </Link>
-
-      <Link
-        href="/login"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        <Button className="w-full">
-          Login
-        </Button>
-      </Link>
-
-      <Link
-        href="/signup"
-        onClick={() => setIsMenuOpen(false)}
-      >
-        <Button className="w-full bg-gradient-to-r from-[#1A365D] via-[#008B8B] to-[#5B21B6] text-white">
-          Register
-        </Button>
-      </Link>
-    </>
+  <Link
+    href="/login"
+    onClick={() => setIsMenuOpen(false)}
+  >
+    <Button className="w-full bg-gradient-to-r from-[#1A365D] via-[#008B8B] to-[#5B21B6] text-white">
+      Login
+    </Button>
+  </Link>
+</>
   )}
 
 </div>

@@ -13,9 +13,12 @@ import {
   ListBox
 } from "@heroui/react";
 import { toast } from "react-toastify";
+import { authClient } from "@/lib/auth-client";
 
 export default function AddItemPage() {
   const [loading, setLoading] =useState(false);
+  const { data: session } = authClient.useSession();
+  const email = session?.user?.email;
 
   const onSubmit = async (
   e: React.FormEvent<HTMLFormElement>
@@ -36,9 +39,8 @@ export default function AddItemPage() {
       description: formData.get("description"),
       price: Number(formData.get("price")),
       rating: Number(formData.get("rating")),
-      image:
-        formData.get("image")?.toString().trim() ||
-        "/default-book-cover.png",
+      image: formData.get("image")?.toString().trim() || "/default-book-cover.png",
+         ownerEmail: session?.user?.email,
     };
 
     console.log(item);
@@ -186,6 +188,13 @@ export default function AddItemPage() {
   <Input placeholder="https://images.com/book-cover.jpg" />
 
   <FieldError />
+</TextField>
+<TextField>
+<Label>User Email</Label>
+<Input
+  value={session?.user?.email || ""}
+  readOnly
+/>
 </TextField>
         </div>
 

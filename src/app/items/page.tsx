@@ -1,6 +1,6 @@
 'use client'
 import BookCard from '@/components/BookCard';
-import BookLoader from '@/components/BookLoader';
+import BookCardSkeleton from '@/components/BookCardSkeleton';
 import { Pagination } from '@heroui/react';
 import React, { useEffect, useState } from 'react';
 interface Book {
@@ -100,7 +100,39 @@ useEffect(() => {
 }, [books, search, genre, price, sort]);
 
 if (loading) {
-  return <BookLoader />;
+  return (
+    <div className="w-11/12 mx-auto">
+      <div className="mb-10 text-center">
+        <h1 className="text-5xl font-bold text-[#1A365D] my-5">
+          Discover Books
+        </h1>
+
+        <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+          Browse books from different genres. Search, filter,
+          and discover your next favorite read.
+        </p>
+      </div>
+
+      {/* Search Skeleton */}
+      <div className="mb-8">
+        <div className="h-12 w-full animate-pulse rounded-xl bg-slate-200" />
+      </div>
+
+      {/* Filter Skeletons */}
+      <div className="mb-10 grid gap-4 md:grid-cols-3">
+        <div className="h-12 animate-pulse rounded-xl bg-slate-200" />
+        <div className="h-12 animate-pulse rounded-xl bg-slate-200" />
+        <div className="h-12 animate-pulse rounded-xl bg-slate-200" />
+      </div>
+
+      {/* Card Skeletons */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <BookCardSkeleton key={i} />
+        ))}
+      </div>
+    </div>
+  );
 }
     return (
         <div className='w-11/12 mx-auto'>
