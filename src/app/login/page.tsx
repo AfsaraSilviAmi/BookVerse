@@ -18,26 +18,38 @@ import { toast } from "react-toastify";
 export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
 
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+ if (!email.trim()) {
+  toast.error("Email is required");
+  return;
+}
 
+if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+  toast.error("Please enter a valid email address");
+  return;
+}
+  if (!password) {
+    toast.error("Password is required");
+    return;
+  }
+
+  if (password.length < 8) {
+    toast.error("Password must be at least 8 characters");
+    return;
+  }
     setLoading(true);
 
     try {
-      const formData = new FormData(e.currentTarget);
-
-      const user = Object.fromEntries(formData.entries()) as {
-        email: string;
-        password: string;
-      };
-
-      const { data, error } = await authClient.signIn.email({
-        email: user.email,
-        password: user.password,
-      });
-
+     const { data, error } = await authClient.signIn.email({
+  email,
+  password,
+});
+   
       if (error) {
         toast.error(error.message);
         return;
@@ -78,22 +90,15 @@ export default function LoginPage() {
             isRequired
             name="email"
             type="email"
-            validate={(value) => {
-              if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-              ) {
-                return "Please enter a valid email address";
-              }
-
-              return null;
-            }}
           >
             <Label>Email</Label>
 
-            <Input
-              id="email"
-              placeholder="john@example.com"
-            />
+           <Input
+  id="email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  placeholder="john@example.com"
+/>
 
             <FieldError />
           </TextField>
@@ -102,22 +107,17 @@ export default function LoginPage() {
             isRequired
             name="password"
             type="password"
-            validate={(value) => {
-              if (!value) return "Password is required";
-
-              if (value.length < 6) {
-                return "Password must be at least 6 characters";
-              }
-
-              return null;
-            }}
+            
           >
             <Label>Password</Label>
 
             <Input
-              id="password"
-              placeholder="Enter your password"
-            />
+  id="password"
+  type="password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  placeholder="Enter your password"
+/>
 
             <Description>
               Enter the password associated with your account.
@@ -135,7 +135,15 @@ export default function LoginPage() {
           >
             {loading ? "Signing In..." : "Login"}
           </Button>
-
+<Button
+  variant="outline"
+  onPress={() => {
+    setEmail("demo@bookverse.com");
+    setPassword("Demo12345");
+  }}
+>
+  Fill Demo Credentials
+</Button>
         </div>
 
 
