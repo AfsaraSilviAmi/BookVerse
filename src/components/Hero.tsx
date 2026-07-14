@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { BookOpen, ChevronDown, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
 
 
 const fadeLeft: Variants = {
@@ -19,12 +20,48 @@ const fadeLeft: Variants = {
     },
   },
 };
+const slides = [
+  {
+    title: "Discover Your Next Favorite Book",
+    description:
+     "Browse a growing collection of books across programming, fantasy, romance, history, and more. Discover your next great read with a beautiful and intuitive library experience.",
+    background:
+      "from-slate-50 via-white to-violet-50",
+    button: "Explore Books",
+  },
+  {
+    title: "Build Your Personal Library Right here",
+    description:
+            "Create your own digital bookshelf by adding, updating, and organizing your favorite books. Keep your collection accessible anytime from anywhere.",
+    background:
+      "from-cyan-50 via-white to-blue-50",
+    button: "Check Books",
+  },
+  {
+    title: "Read, Explore, Inspire and Have fun",
+    description:
+       "Whether you're learning a new technology or escaping into a novel, BookVerse makes discovering and sharing books simple, enjoyable, and inspiring.",
+    background:
+      "from-violet-50 via-white to-pink-50",
+    button: "Start Reading",
+  },
+];
 
 export default function Hero() {
   const { data: session, isPending } = authClient.useSession();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  }, 3000);
+
+  return () => clearInterval(interval);
+}, []);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-violet-50">
+    <section
+className={`relative overflow-hidden bg-gradient-to-br ${slides[currentSlide].background}`}
+>
 
       {/* Animated background */}
       <motion.div
@@ -56,19 +93,15 @@ export default function Hero() {
       <div className="mx-auto flex min-h-[70vh] max-w-7xl flex-col items-center px-6 py-20 lg:flex-row">
 
         {/* LEFT */}
-
+<AnimatePresence mode="wait">
         <motion.div
-          initial="hidden"
-          animate="show"
-          variants={{
-            show: {
-              transition: {
-                staggerChildren: 0.18,
-              },
-            },
-          }}
-          className="flex-1"
-        >
+  key={currentSlide}
+  initial={{ opacity: 0, x: 40 }}
+  animate={{ opacity: 1, x: 0 }}
+  exit={{ opacity: 0, x: -40 }}
+  transition={{ duration: 0.5 }}
+  className="flex-1"
+>
 
           <motion.div variants={fadeLeft}>
             <span className="rounded-full bg-cyan-100 px-4 py-2 text-sm font-semibold text-[#008B8B] shadow-sm">
@@ -76,25 +109,19 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          <motion.h1
-            variants={fadeLeft}
-            className="mt-6 text-5xl font-black leading-tight text-[#1A365D] lg:text-7xl"
-          >
-            Discover
-            <br />
-            Your Next
-            <br />
-            Favorite Book
-          </motion.h1>
+         <motion.h1
+  key={currentSlide}
+  variants={fadeLeft}
+  className="mt-6 text-5xl font-black leading-tight text-[#1A365D] lg:text-7xl"
+>
+  {slides[currentSlide].title}
+</motion.h1>
 
           <motion.p
             variants={fadeLeft}
             className="mt-6 max-w-xl text-lg leading-8 text-slate-600"
           >
-            Explore thousands of books from every genre.
-            Whether you're searching for programming,
-            fantasy, romance, history, or self-help,
-            BookVerse helps you discover your next great read.
+           {slides[currentSlide].description}
           </motion.p>
 
           {/* Buttons */}
@@ -109,7 +136,7 @@ export default function Hero() {
                   size="lg"
                   className="rounded-full bg-gradient-to-r from-[#1A365D] via-[#008B8B] to-[#5B21B6] px-8 text-white shadow-xl"
                 >
-                  Explore Books
+                  {slides[currentSlide].button}
                 </Button>
               </Link>
             </div>
@@ -126,8 +153,11 @@ export default function Hero() {
                   </Button>
                 </Link>
               </motion.div>
+              
             )}
           </motion.div>
+         
+          
 
           {/* Trust indicators */}
 
@@ -164,7 +194,7 @@ export default function Hero() {
 </motion.div>
 
         </motion.div>
-
+ </AnimatePresence>
       
       {/* RIGHT */}
 
