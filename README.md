@@ -1,36 +1,167 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 BookVerse
 
-## Getting Started
+A modern full-stack book management platform where users can explore books, add their own collection, manage their library, and discover popular genres and authors. Built with **Next.js**, **TypeScript**, **Node.js**, **Express.js**, **MongoDB**, and **Better Auth**.
 
-First, run the development server:
+---
+
+## 🌐 Live Demo
+
+- **Frontend:** https://book-verse-taupe.vercel.app/
+
+---
+
+# ✨ Features
+
+### 🔐 Authentication
+- Secure authentication using Better Auth
+- JWT-based protected API routes
+- Persistent user sessions
+- Authorized book management
+
+### 📚 Book Management
+- Add new books
+- View all books
+- View detailed information for each book
+- Delete your own books
+- Manage your personal library
+
+### 🔍 Search, Filter & Sort
+- Search books by title
+- Filter by genre
+- Filter by price range
+- Sort by:
+  - Price (Low → High)
+  - Price (High → Low)
+  - Rating
+  - Alphabetically
+
+### ⭐ Featured Content
+- Featured books section
+- Popular authors
+- Genre statistics
+
+### 🎨 User Experience
+- Responsive design
+- Loading skeletons
+- Beautiful animations with Framer Motion
+- Pagination
+- Toast notifications
+- Custom 404 page
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+- HeroUI
+- Framer Motion
+- React Toastify
+- Lucide React
+
+## Backend
+
+- Node.js
+- Express.js
+- TypeScript
+- MongoDB
+- Better Auth
+- JWT Authentication
+- jose-cjs
+
+
+---
+
+# 🚀 Installation
+
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/AfsaraSilviAmi/BookVerse.git
+```
+
+Move into the project
+
+```bash
+cd book-verse
+```
+
+---
+
+## Install Frontend Dependencies
+
+```bash
+npm install
+```
+
+Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Frontend runs on
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Backend Setup
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+git clone https://github.com/AfsaraSilviAmi/BookVerse-Server.git
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+cd book-verse-server
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Install dependencies
 
-## Deploy on Vercel
+```bash
+npm install
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Run the backend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev
+```
+
+Backend runs on
+
+```
+http://localhost:5000
+```
+
+---
+
+
+
+# 📈 Future Improvements
+
+- Edit books
+- Wishlist
+- Reviews and comments
+- Book ratings by users
+- User profiles
+- Dark mode
+- Admin dashboard
+- Recommendation system
+
+---
+
+# 👩‍💻 Author
+
+**Afsara Silvi Ami**
+
+GitHub: https://github.com/AfsaraSilviAmi
+
+
+---
