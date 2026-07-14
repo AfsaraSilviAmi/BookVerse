@@ -148,22 +148,22 @@ export default function NotFound() {
           className="mt-12 flex flex-wrap justify-center gap-5"
         >
           <Link href="/">
-            <Button
-              size="lg"
-              startContent={<Home size={18} />}
-              className="rounded-full bg-gradient-to-r from-[#1A365D] via-[#008B8B] to-[#5B21B6] px-8 text-white"
-            >
-              Back Home
-            </Button>
+           <Button
+  size="lg"
+  className="rounded-full bg-gradient-to-r from-[#1A365D] via-[#008B8B] to-[#5B21B6] px-8 text-white"
+>
+  <Home size={18} />
+  <span>Back Home</span>
+</Button>
           </Link>
 
           <Link href="/items">
             <Button
               size="lg"
-              variant="bordered"
-              startContent={<Search size={18} />}
+              variant="outline"
+            
               className="rounded-full border-2 border-[#008B8B] px-8 text-[#008B8B]"
-            >
+            ><Search size={18} />
               Browse Books
             </Button>
           </Link>

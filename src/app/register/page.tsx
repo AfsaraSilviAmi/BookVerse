@@ -160,7 +160,7 @@ export default function RegisterPage() {
         <div className="mt-6 flex w-full gap-3">
           <Button
             type="submit"
-            disabled={loading}
+            isDisabled={loading}
             className="flex-1 bg-gradient-to-r from-[#1A365D] via-[#008B8B] to-[#5B21B6] text-white font-semibold"
           >
             {loading ? "Creating Account..." : "Create Account"}
@@ -169,7 +169,7 @@ export default function RegisterPage() {
           <Button
             type="reset"
             variant="outline"
-            disabled={loading}
+            isDisabled={loading}
             className="flex-1"
           >
             Reset

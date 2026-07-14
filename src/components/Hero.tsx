@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@heroui/react";
@@ -8,7 +8,7 @@ import { authClient } from "@/lib/auth-client";
 import { BookOpen, ChevronDown, Sparkles } from "lucide-react";
 
 
-const fadeLeft = {
+const fadeLeft: Variants = {
   hidden: { opacity: 0, x: -60 },
   show: {
     opacity: 1,

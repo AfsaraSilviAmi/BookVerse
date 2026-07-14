@@ -18,6 +18,7 @@ interface Book {
 }
 
 import { useParams } from "next/navigation";
+import BookLoader from "@/components/BookLoader";
 
 export default function BookDetails() {
   const params = useParams();
@@ -32,8 +33,8 @@ export default function BookDetails() {
 
   if (!book) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-lg text-slate-500">Loading book...</p>
+     <div>
+                 <BookLoader></BookLoader>
       </div>
     );
   }

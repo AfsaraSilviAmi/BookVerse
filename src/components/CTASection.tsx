@@ -67,12 +67,12 @@ export default function CTASection() {
             >
               <Link href="/items">
                 <Button
-                  size="lg"
-                  className="rounded-full bg-white px-8 font-semibold text-[#1A365D] shadow-xl"
-                  endContent={<ArrowRight size={18} />}
-                >
-                  Explore Books
-                </Button>
+  size="lg"
+  className="rounded-full bg-white px-8 font-semibold text-[#1A365D] shadow-lg"
+>
+  Explore Books
+  <ArrowRight size={18} />
+</Button>
               </Link>
             </motion.div>
 
@@ -88,11 +88,12 @@ export default function CTASection() {
                 <Link href="/items/add">
                   <Button
                     size="lg"
-                    variant="bordered"
+                    variant="outline"
                     className="rounded-full border-2 border-white bg-transparent px-8 text-white"
-                    endContent={<PlusCircle size={18} />}
+                    
                   >
                     Add Your Book
+                    <PlusCircle size={18} />
                   </Button>
                 </Link>
               </motion.div>

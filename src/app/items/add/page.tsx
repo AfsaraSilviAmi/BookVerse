@@ -206,7 +206,7 @@ const {data:tokenData} = await authClient.token()
         <div className="mt-6 w-full">
           <Button
             type="submit"
-            disabled={loading}
+            isDisabled={loading}
             className="w-full bg-gradient-to-r from-[#1A365D] via-[#008B8B] to-[#5B21B6] text-white font-semibold transition-all duration-300 hover:scale-[1.02]"
           >
             {loading ? "Adding Book..." : "Add Book"}

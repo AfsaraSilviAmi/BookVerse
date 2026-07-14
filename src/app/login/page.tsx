@@ -130,7 +130,7 @@ export default function LoginPage() {
         <div className="mt-6 flex w-full flex-col gap-3">
           <Button
             type="submit"
-            disabled={loading}
+            isDisabled={loading}
             className="w-full bg-gradient-to-r from-[#1A365D] via-[#008B8B] to-[#5B21B6] text-white font-semibold"
           >
             {loading ? "Signing In..." : "Login"}

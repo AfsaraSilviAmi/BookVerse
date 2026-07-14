@@ -2,7 +2,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 
-export default function BookCard({ book }) {
+interface Book {
+  _id: string;
+  title: string;
+  author: string;
+  genre: string;
+  shortDescription: string;
+  description: string;
+  image: string;
+  price: number;
+  rating?: number;
+}
+
+interface BookCardProps {
+  book: Book;
+}
+
+export default function BookCard({ book }: BookCardProps) {
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
       {/* Book Cover */}
