@@ -6,6 +6,7 @@ import {
   BookOpen,
   Mail,
   MapPin,
+  Phone,
 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { DiGithub } from "react-icons/di";
@@ -107,6 +108,16 @@ export default function Footer() {
                 >
                   afsarasilvi44@gmai.com
                 </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone
+                  size={18}
+                  className="text-cyan-400"
+                />
+
+                <span>
+                    01905643618
+                </span>
               </div>
 
               <div className="flex items-center gap-3">

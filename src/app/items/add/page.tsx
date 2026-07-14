@@ -44,6 +44,7 @@ export default function AddItemPage() {
     };
 
     console.log(item);
+const {data:tokenData} = await authClient.token()
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/books`,
@@ -51,6 +52,8 @@ export default function AddItemPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+           authorization: `Bearer ${tokenData?.token}`,
+
         },
         body: JSON.stringify(item),
       }
@@ -156,16 +159,18 @@ export default function AddItemPage() {
           </TextField>
 
           {/* Price */}
-          <TextField isRequired name="price">
-            <Label>Price ($)</Label>
+         <TextField isRequired name="price">
+  <Label>Price ($)</Label>
 
-            <Input
-              type="number"
-              placeholder="25"
-            />
+  <Input
+    type="number"
+    min="0"
+    step="0.01"
+    placeholder="25"
+  />
 
-            <FieldError />
-          </TextField>
+  <FieldError />
+</TextField>
 <TextField isRequired name="rating">
   <Label>Rating</Label>
 
@@ -183,7 +188,7 @@ export default function AddItemPage() {
          <TextField
   name="image"
 >
-  <Label>Book Cover URL</Label>
+  <Label>Book Cover URL (Optional)</Label>
 
   <Input placeholder="https://images.com/book-cover.jpg" />
 

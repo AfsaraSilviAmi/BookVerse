@@ -61,7 +61,7 @@ export default function ContactSection() {
                 </h4>
 
                 <p className="text-slate-600">
-                  +880 1XXXXXXXXX
+                  +880 1905643618
                 </p>
 
               </div>

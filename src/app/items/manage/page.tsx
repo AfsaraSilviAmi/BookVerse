@@ -4,6 +4,7 @@ import { AlertDialog, Button } from '@heroui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const ManageBooks = () => {
     interface Book {
@@ -22,10 +23,16 @@ const { data: session, isPending } = authClient.useSession();
 const [loading, setLoading] = useState(true);
 const handleDelete = async (id: string) => {
   try {
+    const { data: tokenData } = await authClient.token();
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/books/${id}?email=${session?.user?.email}`,
       {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
       }
     );
 
@@ -33,6 +40,7 @@ const handleDelete = async (id: string) => {
 
     if (data.deletedCount > 0) {
       setBooks((prev) => prev.filter((book) => book._id !== id));
+      toast.error("Book deleted succesfully!!")
     }
   } catch (error) {
     console.log(error);
@@ -40,16 +48,28 @@ const handleDelete = async (id: string) => {
 };
 
 useEffect(() => {
-  if (!session?.user?.email) return;
+  const fetchBooks = async () => {
+    if (!session?.user?.email) return;
 
-  fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/my-books?email=${session.user.email}`
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      setBooks(data);
-      setLoading(false);
-    });
+    const { data: tokenData } = await authClient.token();
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/my-books?email=${session.user.email}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    setBooks(data);
+    setLoading(false);
+  };
+
+  fetchBooks();
 }, [session]);
 if (loading || isPending) {
   return (
